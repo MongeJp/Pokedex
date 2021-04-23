@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar, FlatList, Text } from "react-native";
+import { StatusBar } from "react-native";
 import styled from "styled-components/native";
-import { PokeCard } from "../components/PokeCard";
-import { SearchInput } from "../components/SearchInput";
 import axios from "axios";
-import { PokemonsList } from "./../components/PokemonsList";
+
+import { PokemonsList } from "../components/PokemonsList";
+import { Pokemon } from "../../../shared/Pokemon.class";
 
 const SafeArea = styled.SafeAreaView`
   flex: 1;
@@ -30,7 +30,7 @@ const Subtitle = styled.Text`
 `;
 
 export default function HomeScreen() {
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemons, setPokemons] = useState<Array<Pokemon>>([]);
   const [nextUrl, setNextUrl] = useState(
     "https://pokeapi.co/api/v2/pokemon?limit=10"
   );
@@ -46,17 +46,14 @@ export default function HomeScreen() {
         const pokemonsList = response["data"]["results"];
         setNextUrl(response.data.next);
         const results = pokemonsList.map((pokemon: object) =>
-          getPokemonData(pokemon.url)
+          axios.get(pokemon.url)
         );
         return Promise.all(results);
       })
       .then((data) => {
-        setPokemons([...pokemons, ...data]);
+        let newPokemons = data.map((pok: any) => new Pokemon(pok.data));
+        setPokemons([...pokemons, ...newPokemons]);
       });
-  };
-
-  const getPokemonData = (url: string): Promise<Object> => {
-    return axios.get(url);
   };
 
   return (

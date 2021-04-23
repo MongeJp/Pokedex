@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { getTypeColor } from "../utils/colors";
+import { getTypeColor } from "../../../utils/colors";
 
 const Container = styled.ScrollView`
   flex: 1;

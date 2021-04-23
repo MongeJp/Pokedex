@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import * as Progress from "react-native-progress";
+import { View } from "react-native";
 
 const Container = styled.ScrollView`
   flex: 1;
@@ -14,8 +15,7 @@ const Title = styled.Text`
 
 const Section = styled.View`
   flex-direction: row;
-  /*   padding: 5px 0px;
- */
+  justify-content: space-between;
 `;
 
 const Property = styled.Text`
@@ -30,6 +30,11 @@ const Value = styled.Text`
   font-weight: bold;
   margin: 10px 0px;
 `;
+
+const Info = styled.View`
+  flex-direction: row;
+`;
+
 const ProgressBar = styled(Progress.Bar)`
   height: 8px;
   align-self: center;
@@ -46,8 +51,10 @@ export const StatsList = ({ stats }) => {
     stats.map((stat) => {
       return (
         <Section key={stat.stat.name}>
-          <Property>{stat.stat.name}:</Property>
-          <Value>{stat.base_stat}</Value>
+          <Info>
+            <Property>{stat.stat.name}:</Property>
+            <Value>{stat.base_stat}</Value>
+          </Info>
           <ProgressBar
             progress={getPercentage(stat.base_stat)}
             color="#8ac8a2"

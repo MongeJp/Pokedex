@@ -10,11 +10,12 @@ const Container = styled.TouchableOpacity`
 `;
 const Text = styled.Text`
   color: #b5b6b8;
-  color: ${(props) => (props.isSelected ? "#45946c" : "#b5b6b8")}
+  color: ${(props) => (props.isSelected ? "#45946c" : "#b5b6b8")};
   font-weight: bold;
   font-size: 14px;
+  text-transform: capitalize;
 `;
-export const Option = ({ onPress, title, isSelected }) => {
+export const Tab = ({ onPress, title, isSelected }) => {
   return (
     <Container onPress={onPress}>
       <Text isSelected={isSelected}>{title}</Text>

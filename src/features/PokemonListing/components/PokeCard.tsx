@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 
-import { DetailsModal } from "./../screens/DetailsModal";
-import { getTypeColor } from "./../utils/colors";
-import { addZeros } from "../utils/methods";
+import { DetailsModal } from "../../PokemonDetails/screens/DetailsModal";
+import { Pokemon } from "../../../shared/Pokemon.class";
 
 const Card = styled.TouchableOpacity`
   background-color: ${(props) => props.color};
@@ -51,29 +50,29 @@ const Number = styled.Text`
   padding-right: 15px;
 `;
 
-export const PokeCard = ({ pokemon }) => {
+export const PokeCard = (props: { pokemon: Pokemon }) => {
+  const { pokemon } = props;
   const [modalVisible, setModalVisible] = useState(false);
-  const numOrder = addZeros(pokemon.id);
-  const type = pokemon.types[0].type.name;
+  const toggleModal = () => setModalVisible(!modalVisible);
   return (
     <>
-      <Card color={getTypeColor(type)} onPress={() => setModalVisible(true)}>
+      <Card color={pokemon.mainColor} onPress={toggleModal}>
         <Picture
           source={{
-            uri: pokemon.sprites.front_default,
+            uri: pokemon.image,
           }}
         />
         <Info>
           <Name>{pokemon.name}</Name>
-          <Type>{type}</Type>
+          <Type>{pokemon.mainType}</Type>
         </Info>
-        <Number>#{numOrder}</Number>
+        <Number>#{pokemon.order}</Number>
       </Card>
       {modalVisible ? (
         <DetailsModal
           isVisible={modalVisible}
           pokemon={pokemon}
-          closeModal={() => setModalVisible(false)}
+          closeModal={toggleModal}
         />
       ) : null}
     </>
