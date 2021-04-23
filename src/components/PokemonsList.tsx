@@ -8,9 +8,7 @@ export const PokemonsList = (props: {
   handleOnEnd: Function;
 }) => {
   const { pokemons, handleOnEnd } = props;
-  const renderItem = ({ item }) => (
-    <PokeCard pokemon={item.data} title={item.name} />
-  );
+  const renderItem = ({ item }) => <PokeCard pokemon={item.data} />;
 
   return (
     <FlatList

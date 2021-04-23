@@ -26,7 +26,7 @@ export const SearchInput = ({ onChange }) => {
       <Input
         placeholder="Search for a Pokémon"
         placeholderTextColor="#9ea2a5"
-        onChangeText={onChange}
+        onChangeText={(value: string) => onChange(value)}
       />
     </InputContainer>
   );

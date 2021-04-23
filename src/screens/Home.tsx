@@ -30,9 +30,7 @@ const Subtitle = styled.Text`
 `;
 
 export default function HomeScreen() {
-  const [searchText, setSearchText] = useState("");
   const [pokemons, setPokemons] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [nextUrl, setNextUrl] = useState(
     "https://pokeapi.co/api/v2/pokemon?limit=10"
   );
@@ -61,39 +59,16 @@ export default function HomeScreen() {
     return axios.get(url);
   };
 
-  const search = (value: string) => {
-    if (searchText === "") return;
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${value}`)
-      .then(function (response) {
-        const pokemonsList = response["data"]["results"];
-
-        const results = pokemonsList.map((pokemon: object) =>
-          getPokemonData(pokemon.url)
-        );
-        return Promise.all(results);
-      })
-      .then((data) => {
-          console.log(data);
-        setPokemons(data);
-      });
-  };
-
   return (
     <SafeArea>
       <Header>
         <Title>Pokédex</Title>
-        <SearchInput onChange={(value) => search(value)} />
         <Subtitle>
           The Pokédex contains detailed stats for every creature from the
           Pokémon games.
         </Subtitle>
       </Header>
-      {isLoading ? (
-        <Text>Cargando</Text>
-      ) : (
-        <PokemonsList pokemons={pokemons} handleOnEnd={getPokemonsList} />
-      )}
+      <PokemonsList pokemons={pokemons} handleOnEnd={getPokemonsList} />
     </SafeArea>
   );
 }
