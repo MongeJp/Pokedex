@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
+import * as Progress from "react-native-progress";
 
 import { getTypeColor } from "../utils/colors";
 import { addZeros } from "../utils/methods";
@@ -65,6 +66,12 @@ const OptionsContainer = styled.View`
   justify-content: space-between;
 `;
 
+const LoadingSpinner = styled.ActivityIndicator`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const DetailsModal = (props: {
   isVisible: boolean;
   pokemon: object;
@@ -78,39 +85,49 @@ export const DetailsModal = (props: {
   const [types, setTypes] = useState([]);
   const [stats, setStats] = useState([]);
   const [optionSelected, setOptionSelected] = useState("abilities");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getAbilities();
   }, []);
 
   const getAbilities = () => {
+    setIsLoading(true);
     const abilitiesArray = pokemon.abilities.map((element) => {
       const url = element.ability.url;
       return axios.get(url);
     });
-    Promise.all(abilitiesArray).then((data) => {
-      setAbilities(data);
-    });
+    Promise.all(abilitiesArray)
+      .then((data) => {
+        setAbilities(data);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const getTypes = () => {
+    setIsLoading(true);
     const typesArray = pokemon.types.map((element) => {
       const url = element.type.url;
       return axios.get(url);
     });
-    Promise.all(typesArray).then((data) => {
-      setTypes(data);
-    });
+    Promise.all(typesArray)
+      .then((data) => {
+        setTypes(data);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const getStats = () => {
+    setIsLoading(true);
     const typesArray = pokemon.stats.map((element) => {
       const url = element.stat.url;
       return axios.get(url);
     });
-    Promise.all(typesArray).then((data) => {
-      setStats(data);
-    });
+    Promise.all(typesArray)
+      .then((data) => {
+        setStats(data);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -158,6 +175,7 @@ export const DetailsModal = (props: {
             isSelected={optionSelected === "types"}
           />
         </OptionsContainer>
+        {isLoading ? <LoadingSpinner size="large" color="#8ac8a2" /> : null}
         {abilities.length && optionSelected === "abilities" ? (
           <AbilitiesList abilities={abilities} />
         ) : null}

@@ -17,14 +17,14 @@ const Section = styled.View`
 `;
 
 const Property = styled.Text`
-  color: #6e7275;
+  color: #5abb82;
   font-weight: bold;
   margin: 10px;
   text-transform: capitalize;
 `;
 
 const Value = styled.Text`
-  color: #5abb82;
+  color: #6e7275;
   font-weight: bold;
   margin: 10px;
 `;
