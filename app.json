@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Pokedex app made with React Native\n\n",
+    "githubUrl": "https://github.com/MongeJp/Pokedex"
   }
 }

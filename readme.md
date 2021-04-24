@@ -34,11 +34,11 @@ $ git clone https://github.com/MongeJp/Pokedex.git
 Then you need to move to the project folder and install the dependencies (it can be via yarn or npm).
 
 ```
-$ cd pokedex
+$ cd Pokedex
 $ yarn install
 ```
 
-Now you can either run the app via the QR code shown running yarn start o run the app directly to the android emulator using yarn android.
+Now you can either run the app via using the Expo Go App and scanning the QR code shown running yarn start or run the app directly to the android emulator using yarn android.
 
 ```
 $ yarn start
