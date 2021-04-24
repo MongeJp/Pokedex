@@ -1,8 +1,6 @@
 # Pokedex
 
-<img align="left" width="49%" height="600px" src="./pokedex.png">
-<img align="right" width="50%" height="600px" src="./pkdx2.png">
-
+![title](pokedex.png)
 
 ## Table of contents
 
