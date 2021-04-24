@@ -17,10 +17,11 @@ This Pokedex mobile app is created with:
 - React Native + Expo
 - TypeScript
 - Styled Components
+- Axios
 
 ## Requirements
 
-To be able to run this project you need to have installed the Expo CLI and Android Studio.
+To be able to run this project you need to have installed the Expo CLI, NodeJS and Android Studio.
 
 ## Setup
 
